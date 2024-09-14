@@ -46,107 +46,101 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Use MediaQuery to get screen size and adjust padding
-    final screenSize = MediaQuery.of(context).size;
-    final isSmallScreen = screenSize.width < 600;
-
     return Scaffold(
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: isSmallScreen ? 16.0 : 32.0, // Adjust padding for small screens
-                vertical: isSmallScreen ? 24.0 : 48.0,  // Adjust padding for small screens
-              ),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'LOGO',
-                      style: TextStyle(
-                        fontSize: isSmallScreen ? 24 : 36, // Adjust text size for small screens
-                        fontWeight: FontWeight.bold,
-                      ),
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 40), // Adjust top padding as needed
+                  Text(
+                    'LOGO',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 23, 23, 243),
                     ),
-                    SizedBox(height: 16),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        labelText: 'Enter your email',
-                        prefixIcon: Icon(Icons.email),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 16), // Adjust spacing for small screens
-
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Enter your password',
-                        prefixIcon: Icon(Icons.lock),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        } else if (value.length < 6) {
-                          return 'Password must be at least 6 characters long';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 16), // Adjust spacing for small screens
-                    Row(
+                  ),
+                  SizedBox(height: 70),  
+                  Form(
+                    key: _formKey,
+                    child: Column(
                       children: [
-                        Checkbox(
-                          value: _rememberMe,
-                          onChanged: (value) {
-                            setState(() {
-                              _rememberMe = value!;
-                            });
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Enter your email',
+                            prefixIcon: Icon(Icons.email),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
+                            } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
                           },
                         ),
-                        Text("Remember Me"),
+                        SizedBox(height: 25),
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: 'Enter your password',
+                            prefixIcon: Icon(Icons.lock),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            } else if (value.length < 6) {
+                              return 'Password must be at least 6 characters long';
+                            }
+                            return null;
+                          },
+                        ),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: _rememberMe,
+                              onChanged: (value) {
+                                setState(() {
+                                  _rememberMe = value!;
+                                });
+                              },
+                            ),
+                            Text("Remember Me"),
+                          ],
+                        ),
+                        SizedBox(height: 40),
+                        ElevatedButton(
+                          onPressed: _login,
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Color(0xFF0464A9),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 120,
+                              vertical: 15,
+                            ),
+                          ),
+                          child: Text('Login'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            // Handle forgot password functionality
+                          },
+                          child: Text('Forgot password?'),
+                        ),
+                        SizedBox(height: 20),
+                        Image.asset(
+                          'assets/images/merchant_delevery_bike.png', // Ensure the image is in your assets folder
+                          height: 250,
+                        ),
                       ],
                     ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: _login,
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Color(0xFF0464A9),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isSmallScreen ? 80 : 120, // Adjust button padding for small screens
-                          vertical: 15,
-                        ),
-                        textStyle: TextStyle(fontSize: 16),
-                      ),
-                      child: Text('Log In'),
-                    ),
-                    SizedBox(height: 20),
-                    TextButton(
-                      onPressed: () {
-                        // Handle forgot password functionality
-                      },
-                      child: Text('Forgot password?'),
-                    ),
-                    SizedBox(height: 20),
-                    if (screenSize.width > 600) // Show image only on larger screens
-                      Image.asset(
-                        'assets/images/merchant_delevery_bike.png', // Ensure the image is in your assets folder
-                        height: 200,
-                      ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
     );
