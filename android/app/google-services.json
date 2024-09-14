@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "567699070935",
+    "project_id": "coding-task-539af",
+    "storage_bucket": "coding-task-539af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567699070935:android:c51c03bcbf590c6b76b592",
+        "android_client_info": {
+          "package_name": "com.assignment.merchant_order_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7qPNSaTp_MoXw0EBBRvENFVKWw4h4slA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
